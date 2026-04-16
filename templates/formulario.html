@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha de Cadastro Sócio-Familiar</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Ficha de Cadastro Sócio-Familiar</h1>
+        <p class="subtitulo">Instituto Sô Uai</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for categoria, message in messages %}
+                    <div class="alert {{ categoria }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" class="formulario">
+
+            <section>
+                <h2>1. Identificação</h2>
+                <div class="grid-2">
+                    <div>
+                        <label>Data</label>
+                        <input type="date" name="data_cadastro">
+                    </div>
+
+                    <div>
+                        <label>Tipo de cadastro</label>
+                        <select name="tipo_cadastro">
+                            <option value="">Selecione</option>
+                            <option value="Preenchido pelo próprio usuário">Preenchido pelo próprio usuário</option>
+                            <option value="Preenchido por responsável legal">Preenchido por responsável legal</option>
+                        </select>
+                    </div>
+                </div>
+
+                <label>Nome completo do usuário (participante)</label>
+                <input type="text" name="nome_completo" required>
+
+                <div class="grid-2">
+                    <div>
+                        <label>Data de nascimento</label>
+                        <input type="date" name="data_nascimento">
+                    </div>
+                    <div>
+                        <label>CPF do usuário</label>
+                        <input type="text" name="cpf_usuario">
+                    </div>
+                </div>
+
+                <label>Responsável legal (em caso de menor de idade) - Nome completo</label>
+                <input type="text" name="nome_responsavel">
+
+                <div class="grid-3">
+                    <div>
+                        <label>Grau de parentesco</label>
+                        <input type="text" name="grau_parentesco">
+                    </div>
+                    <div>
+                        <label>CPF do responsável legal</label>
+                        <input type="text" name="cpf_responsavel">
+                    </div>
+                    <div>
+                        <label>Telefone/WhatsApp</label>
+                        <input type="text" name="telefone">
+                    </div>
+                </div>
+
+                <label>Endereço</label>
+                <input type="text" name="endereco">
+
+                <label>Bairro/Comunidade</label>
+                <input type="text" name="bairro">
+            </section>
+
+            <section>
+                <h2>2. Perfil</h2>
+
+                <div class="grid-2">
+                    <div>
+                        <label>Sexo</label>
+                        <select name="sexo">
+                            <option value="">Selecione</option>
+                            <option value="Feminino">Feminino</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Outro sexo</label>
+                        <input type="text" name="outro_sexo">
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div>
+                        <label>Gênero</label>
+                        <select name="genero">
+                            <option value="">Selecione</option>
+                            <option value="Cisgênero">Cisgênero</option>
+                            <option value="Transgênero">Transgênero</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Outro gênero</label>
+                        <input type="text" name="outro_genero">
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div>
+                        <label>Idade</label>
+                        <input type="number" name="idade" min="0">
+                    </div>
+                    <div>
+                        <label>Raça/Cor</label>
+                        <select name="raca_cor">
+                            <option value="">Selecione</option>
+                            <option value="Branca">Branca</option>
+                            <option value="Preta">Preta</option>
+                            <option value="Parda">Parda</option>
+                            <option value="Amarela">Amarela</option>
+                            <option value="Indígena">Indígena</option>
+                            <option value="Não deseja informar">Não deseja informar</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>3. Escolaridade</h2>
+
+                <label>Escolaridade</label>
+                <select name="escolaridade">
+                    <option value="">Selecione</option>
+                    <option value="Não alfabetizado(a)">Não alfabetizado(a)</option>
+                    <option value="Fundamental incompleto">Fundamental incompleto</option>
+                    <option value="Fundamental completo">Fundamental completo</option>
+                    <option value="Médio incompleto">Médio incompleto</option>
+                    <option value="Médio completo">Médio completo</option>
+                    <option value="Superior incompleto">Superior incompleto</option>
+                    <option value="Superior completo">Superior completo</option>
+                    <option value="Pós-graduação">Pós-graduação</option>
+                </select>
+
+                <div class="grid-2">
+                    <div>
+                        <label>Frequenta escola atualmente?</label>
+                        <select name="frequenta_escola">
+                            <option value="">Selecione</option>
+                            <option value="Sim">Sim</option>
+                            <option value="Não">Não</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Se sim, qual escola está matriculado(a)?</label>
+                        <input type="text" name="escola_matriculada">
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>4. Situação familiar</h2>
+
+                <div class="grid-2">
+                    <div>
+                        <label>Estado civil</label>
+                        <select name="estado_civil">
+                            <option value="">Selecione</option>
+                            <option value="Solteiro(a)">Solteiro(a)</option>
+                            <option value="Casado(a)/União estável">Casado(a)/União estável</option>
+                            <option value="Separado(a)">Separado(a)</option>
+                            <option value="Divorciado(a)">Divorciado(a)</option>
+                            <option value="Viúvo(a)">Viúvo(a)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Mora com companheiro(a)?</label>
+                        <select name="mora_companheiro">
+                            <option value="">Selecione</option>
+                            <option value="Sim">Sim</option>
+                            <option value="Não">Não</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div>
+                        <label>Tem filhos?</label>
+                        <select name="tem_filhos">
+                            <option value="">Selecione</option>
+                            <option value="Não">Não</option>
+                            <option value="Sim">Sim</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Quantos?</label>
+                        <input type="number" name="quantidade_filhos" min="0">
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>5. Composição familiar</h2>
+
+                <div class="grid-2">
+                    <div>
+                        <label>Quantas pessoas moram na residência (incluindo você)?</label>
+                        <input type="number" name="pessoas_residencia" min="0">
+                    </div>
+
+                    <div>
+                        <label>Dessas, quantas possuem renda?</label>
+                        <input type="number" name="pessoas_renda" min="0">
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>6. Situação de moradia</h2>
+
+                <div class="grid-2">
+                    <div>
+                        <label>Situação de moradia</label>
+                        <select name="situacao_moradia">
+                            <option value="">Selecione</option>
+                            <option value="Casa própria (regularizada)">Casa própria (regularizada)</option>
+                            <option value="Casa própria (posse)">Casa própria (posse)</option>
+                            <option value="Alugada">Alugada</option>
+                            <option value="Cedida">Cedida</option>
+                            <option value="Situação de rua">Situação de rua</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Outro tipo de moradia</label>
+                        <input type="text" name="outro_moradia">
+                    </div>
+                </div>
+
+                <label>Tempo de moradia</label>
+                <select name="tempo_moradia">
+                    <option value="">Selecione</option>
+                    <option value="Até 1 ano">Até 1 ano</option>
+                    <option value="1 a 5 anos">1 a 5 anos</option>
+                    <option value="5 a 10 anos">5 a 10 anos</option>
+                    <option value="Mais de 10 anos">Mais de 10 anos</option>
+                </select>
+            </section>
+
+            <section>
+                <h2>7. Situação de trabalho e renda</h2>
+
+                <label>Ocupação</label>
+                <input type="text" name="ocupacao">
+
+                <div class="grid-2">
+                    <div>
+                        <label>Situação atual</label>
+                        <select name="situacao_atual">
+                            <option value="">Selecione</option>
+                            <option value="Empregado(a) com carteira">Empregado(a) com carteira</option>
+                            <option value="Empregado(a) sem carteira">Empregado(a) sem carteira</option>
+                            <option value="Autônomo(a)">Autônomo(a)</option>
+                            <option value="Desempregado(a)">Desempregado(a)</option>
+                            <option value="Estudante">Estudante</option>
+                            <option value="Aposentado(a)/Pensionista">Aposentado(a)/Pensionista</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Outro situação atual</label>
+                        <input type="text" name="outro_situacao_atual">
+                    </div>
+                </div>
+
+                <label>Renda familiar mensal</label>
+                <select name="renda_familiar">
+                    <option value="">Selecione</option>
+                    <option value="Sem renda">Sem renda</option>
+                    <option value="Até 1 salário mínimo">Até 1 salário mínimo</option>
+                    <option value="De 1 a 2 salários mínimos">De 1 a 2 salários mínimos</option>
+                    <option value="De 2 a 3 salários mínimos">De 2 a 3 salários mínimos</option>
+                    <option value="Acima de 3 salários mínimos">Acima de 3 salários mínimos</option>
+                </select>
+            </section>
+
+            <section>
+                <h2>8. Benefícios sociais</h2>
+
+                <label>Recebe algum benefício?</label>
+                <select name="recebe_beneficio">
+                    <option value="">Selecione</option>
+                    <option value="Não">Não</option>
+                    <option value="Sim">Sim</option>
+                </select>
+
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="bolsa_familia"> Bolsa Família</label>
+                    <label><input type="checkbox" name="bpc"> BPC</label>
+                </div>
+
+                <label>Outro benefício</label>
+                <input type="text" name="outro_beneficio">
+            </section>
+
+            <section>
+                <h2>9. Vínculo com o Instituto Sô Uai</h2>
+
+                <div class="grid-2">
+                    <div>
+                        <label>Como conheceu o Instituto?</label>
+                        <select name="como_conheceu">
+                            <option value="">Selecione</option>
+                            <option value="Indicação">Indicação</option>
+                            <option value="Redes sociais">Redes sociais</option>
+                            <option value="Escola">Escola</option>
+                            <option value="Comunidade">Comunidade</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Outro meio de conhecimento</label>
+                        <input type="text" name="outro_conheceu">
+                    </div>
+                </div>
+
+                <label>Já participou de alguma atividade?</label>
+                <select name="ja_participou">
+                    <option value="">Selecione</option>
+                    <option value="Sim">Sim</option>
+                    <option value="Não">Não</option>
+                </select>
+            </section>
+
+            <section>
+                <h2>10. Observações técnicas</h2>
+                <label>Observações</label>
+                <textarea name="observacoes" rows="5"></textarea>
+            </section>
+
+            <button type="submit">Salvar cadastro</button>
+        </form>
+    </div>
+</body>
+</html>
